@@ -311,6 +311,24 @@ config PUB_ROM_DATA_SIZE
 	  boot image. Once the ROM transfers control to the boot
 	  image, this area is no longer used, and can be reclaimed
 	  for run time use by the boot image.
+
+config SPL_BOOT_LOOP
+	bool
+	depends on SPL
+	prompt "boot loop for JTAG debugging"
+	help
+	  Enter an infinite loop in board_init_f to allow breaking with a JTAG debugger
+
+config SPL_BOOT_DELAY
+	bool
+	depends on SPL
+	prompt "boot delay for debugging"
+	help
+	  Enter an delay of several seconds in board_init_f to allow
+	  the console to be reconnected
+	  When the console is routed through a USB serial device
+	  which is not bus-powered, this is a problem.
+
 endif
 
 config AM335X_USB0

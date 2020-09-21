@@ -514,6 +514,17 @@ void early_system_init(void)
 #ifdef CONFIG_SPL_BUILD
 void board_init_f(ulong dummy)
 {
+#ifdef	CONFIG_SPL_BOOT_LOOP
+	volatile int halt_pc = 1;
+	volatile int halt_pc1 = 1;
+	while (halt_pc) {
+		halt_pc1++;
+	};
+#endif
+#ifdef	CONFIG_SPL_BOOT_DELAY
+	volatile int halt_pc = 1000000 * 25;
+	while (halt_pc--);
+#endif
 	hw_data_init();
 	early_system_init();
 	board_early_init_f();
