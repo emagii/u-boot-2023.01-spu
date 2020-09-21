@@ -455,6 +455,14 @@ config SPI_SIFIVE
 
 	  The SiFive SPI controller driver is found on various SiFive SoCs.
 
+config SOFT_MCSPI
+	bool "Soft Multichannel SPI driver"
+	depends on DM_SPI
+	help
+	 Enable Soft Multichannel SPI driver, supporting multiple chipselects.
+	 This driver uses GPIO to simulate the SPI protocol.
+	 It is faster than the Soft SPI driver.
+
 config SOFT_SPI
 	bool "Soft SPI driver"
 	help

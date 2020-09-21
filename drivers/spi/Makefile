@@ -9,6 +9,7 @@ obj-y += spi-uclass.o
 obj-$(CONFIG_CADENCE_QSPI) += cadence_qspi.o cadence_qspi_apb.o
 obj-$(CONFIG_CADENCE_OSPI_VERSAL) += cadence_ospi_versal.o
 obj-$(CONFIG_SANDBOX) += spi-emul-uclass.o
+obj-$(CONFIG_SOFT_MCSPI) += dm_soft_mcspi.o
 obj-$(CONFIG_SOFT_SPI) += soft_spi.o
 obj-$(CONFIG_SPI_ASPEED_SMC) += spi-aspeed-smc.o
 obj-$(CONFIG_SPI_MEM) += spi-mem.o
