@@ -1469,6 +1469,12 @@ config CMD_SPI
 	help
 	  SPI utility command.
 
+config CMD_SPI_GPIO
+	bool "sspi - Command to access spi gpio device"
+	depends on SPI
+	help
+	  SPI utility command to read/write registers.
+
 config DEFAULT_SPI_BUS
 	int "default spi bus used by sspi command"
 	depends on CMD_SPI
