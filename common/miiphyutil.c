@@ -553,8 +553,10 @@ int miiphy_link(const char *devname, unsigned char addr)
 
 	/* Determine if a link is active */
 	if ((reg & BMSR_LSTATUS) != 0) {
+		debug("%s: [0x%02x]: 0x%04x link is up\n", devname, addr, reg);
 		return 1;
 	} else {
+		debug("%s: [0x%02x]: 0x%04x link is down\n", devname, addr, reg);
 		return 0;
 	}
 }
