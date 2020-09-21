@@ -592,9 +592,8 @@ int spi_slave_of_to_plat(struct udevice *dev, struct dm_spi_slave_plat *plat)
 		warn_non_spl("spi-rx-bus-width %d not supported\n", value);
 		break;
 	}
-
 	plat->mode = mode;
-
+	debug("spi cs: %d, mode: 0x%08x spi mode: 0x%08x\n", plat->cs, plat->mode, plat->mode & 0x3);
 	return 0;
 }
 
