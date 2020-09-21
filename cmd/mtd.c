@@ -158,6 +158,9 @@ static void mtd_show_device(struct mtd_info *mtd)
 	case MTD_MLCNANDFLASH:
 		printf("MLC NAND flash\n");
 		break;
+	case MTD_FPGA:
+		printf("FPGA\n");
+		break;
 	case MTD_ABSENT:
 	default:
 		printf("Unknown\n");
@@ -275,6 +278,11 @@ static int do_mtd_io(struct cmd_tbl *cmdtp, int flag, int argc,
 	raw = strstr(cmd, ".raw");
 	woob = strstr(cmd, ".oob");
 	write_empty_pages = !has_pages || strstr(cmd, ".dontskipff");
+	if (mtd->type == MTD_FPGA) {
+		raw = true;
+		woob = false;
+		write_empty_pages = true;
+	}
 
 	argc -= 2;
 	argv += 2;
