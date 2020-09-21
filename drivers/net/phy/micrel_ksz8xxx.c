@@ -141,8 +141,10 @@ static unsigned short smireg_to_reg(unsigned short reg)
 
 static void ksz8895_write_smireg(struct phy_device *phydev, int smireg, int val)
 {
-	phydev->bus->write(phydev->bus, smireg_to_phy(smireg), MDIO_DEVAD_NONE,
-						smireg_to_reg(smireg), val);
+	unsigned short	phy = smireg_to_phy(smireg);
+	unsigned short	reg = smireg_to_reg(smireg);
+	debug("%s: [%d,%d] = 0x%08x\n", phydev->bus->name, phy, reg, val);
+	phydev->bus->write(phydev->bus, phy, MDIO_DEVAD_NONE, reg, val);
 }
 
 #if 0
