@@ -224,6 +224,13 @@ config KIRKWOOD_GPIO
 	help
 	  This drdiver supports GPIOs on Kirkwood platforms
 
+config KSZ8895_GPIO
+	bool "KSZ8895 GPIO driver"
+	depends on DM
+	default n
+	help
+	  Support for the KSZ8895 GPIO driver.
+
 config LPC32XX_GPIO
 	bool "LPC32XX GPIO driver"
 	depends on DM
