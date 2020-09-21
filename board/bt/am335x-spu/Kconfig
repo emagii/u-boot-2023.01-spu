@@ -1,0 +1,25 @@
+if TARGET_AM335X_SPU
+
+config SYS_BOARD
+	default "am335x-spu"
+
+config SYS_VENDOR
+	default "bt"
+
+config SYS_SOC
+	default "am33xx"
+
+config SYS_CONFIG_NAME
+	default "am335x_spu"
+
+config BOARD_REV
+	string "board revision"
+	default	"0.1"
+
+config BOARD_SERIAL
+	string "board serial number"
+	default "007"
+
+source "board/bt/common/Kconfig"
+
+endif

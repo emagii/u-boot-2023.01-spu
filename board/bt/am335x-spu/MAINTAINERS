@@ -1,0 +1,6 @@
+SPU BOARD
+M:	Ulf Samuelsson <ulf@emagii.com>
+S:	Maintained
+F:	board/bt/am335x-spu/
+F:	include/configs/am335x_spu.h
+F:	configs/am33xx_spu_defconfig
