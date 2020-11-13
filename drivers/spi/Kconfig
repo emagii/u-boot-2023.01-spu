@@ -353,6 +353,19 @@ config OMAP3_SPI
 	  (McSPI). This driver be used to access SPI chips on platforms
 	  embedding this OMAP3 McSPI IP core.
 
+choice
+	prompt "OMAP3 SPI chip select handling"
+	default OMAP3_SPI_CS_PERIPHERAL
+	depends on OMAP3_SPI
+
+config OMAP3_SPI_CS_PERIPHERAL
+	bool "Peripheral"
+
+config OMAP3_SPI_CS_GPIO
+	bool "GPIO"
+
+endchoice
+
 config PIC32_SPI
 	bool "Microchip PIC32 SPI driver"
 	depends on MACH_PIC32
