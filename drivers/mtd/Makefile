@@ -24,6 +24,7 @@ endif
 obj-y += nand/
 obj-y += onenand/
 obj-y += spi/
+obj-$(CONFIG_DM_SPI_FPGA) += fpga/
 obj-$(CONFIG_MTD_UBI) += ubi/
 
 #SPL/TPL build
