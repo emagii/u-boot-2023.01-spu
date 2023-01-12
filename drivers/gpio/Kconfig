@@ -316,6 +316,13 @@ config QCOM_PMIC_GPIO
 	  Power and reset buttons are placed in "pwkey_qcom" bank and
           have gpio numbers 0 and 1 respectively.
 
+config PCF8574_GPIO
+	bool "PCF8574 I2C GPIO Expander driver"
+	depends on DM_GPIO && DM_I2C
+	help
+	 Support for PCF8574 I2C 8-bit GPIO expander. Most of these
+	 chips are from NXP and TI.
+
 config PCF8575_GPIO
 	bool "PCF8575 I2C GPIO Expander driver"
 	depends on DM_GPIO && DM_I2C
