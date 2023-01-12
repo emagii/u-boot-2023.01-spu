@@ -348,6 +348,15 @@ static int net_init_loop(void)
 	if (eth_get_dev()) {
 		memcpy(net_ethaddr, eth_get_ethaddr(), 6);
 
+		debug("ethaddr: [%02x:%02x:%02x:%02x:%02x:%02x]\n",
+			net_ethaddr[0],
+			net_ethaddr[1],
+			net_ethaddr[2],
+			net_ethaddr[3],
+			net_ethaddr[4],
+			net_ethaddr[5]
+		);
+
 		if (IS_ENABLED(CONFIG_IPV6)) {
 			ip6_make_lladdr(&net_link_local_ip6, net_ethaddr);
 			if (!memcmp(&net_ip6, &net_null_addr_ip6,
@@ -355,15 +364,15 @@ static int net_init_loop(void)
 				memcpy(&net_ip6, &net_link_local_ip6,
 				       sizeof(struct in6_addr));
 		}
-	}
-	else
+	} else {
 		/*
 		 * Not ideal, but there's no way to get the actual error, and I
 		 * don't feel like fixing all the users of eth_get_dev to deal
 		 * with errors.
 		 */
+		debug("No current eth device\n");
 		return -ENONET;
-
+	}
 	return 0;
 }
 
