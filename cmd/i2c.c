@@ -387,6 +387,37 @@ static int do_i2c_write(struct cmd_tbl *cmdtp, int flag, int argc,
 	return 0;
 }
 
+static int do_i2c_io(struct cmd_tbl *cmdtp, int flag, int argc,
+			char *const argv[])
+{
+	struct udevice *dev;
+	unsigned char byte[4];
+	int chip;
+	int ret;
+
+	if (argc != 3)
+		return CMD_RET_USAGE;
+
+	chip = simple_strtoul(argv[1], NULL, 16);
+	ret = i2c_get_cur_bus_chip(chip, &dev);
+	if (ret)
+		return i2c_report_err(ret, I2C_ERR_READ);
+
+	byte[0] = simple_strtoul(argv[2], NULL, 4);
+
+#if CONFIG_IS_ENABLED(DM_I2C)
+	ret = dm_i2c_write(dev, 0, &byte[0], 1);
+#else
+	ret = i2c_write(chip, 0, 0, &byte[0], 1);
+#endif
+
+	if (ret)
+		return i2c_report_err(ret, I2C_ERR_READ);
+
+	return 0;
+}
+
+
 #if CONFIG_IS_ENABLED(DM_I2C)
 static int do_i2c_flags(struct cmd_tbl *cmdtp, int flag, int argc,
 			char *const argv[])
@@ -1928,6 +1959,7 @@ static struct cmd_tbl cmd_i2c_sub[] = {
 	U_BOOT_CMD_MKENT(probe, 0, 1, do_i2c_probe, "", ""),
 	U_BOOT_CMD_MKENT(read, 5, 1, do_i2c_read, "", ""),
 	U_BOOT_CMD_MKENT(write, 6, 0, do_i2c_write, "", ""),
+	U_BOOT_CMD_MKENT(io, 3, 0, do_i2c_io, "", ""),
 #if CONFIG_IS_ENABLED(DM_I2C)
 	U_BOOT_CMD_MKENT(flags, 2, 1, do_i2c_flags, "", ""),
 	U_BOOT_CMD_MKENT(olen, 2, 1, do_i2c_olen, "", ""),
@@ -2005,6 +2037,7 @@ static char i2c_help_text[] =
 	"i2c read chip address[.0, .1, .2] length memaddress - read to memory\n"
 	"i2c write memaddress chip address[.0, .1, .2] length [-s] - write memory\n"
 	"          to I2C; the -s option selects bulk write in a single transaction\n"
+	"i2c io chip data - write byte to I/O expander\n"
 #if CONFIG_IS_ENABLED(DM_I2C)
 	"i2c flags chip [flags] - set or get chip flags\n"
 	"i2c olen chip [offset_length] - set or get chip offset length\n"
