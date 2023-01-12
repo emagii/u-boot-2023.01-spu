@@ -165,6 +165,13 @@ config TI_SECURE_EMIF_PROTECTED_REGION_SIZE
 	  using hardware memory firewalls. This value must be smaller than the
 	  TI_SECURE_EMIF_TOTAL_REGION_SIZE value.
 
+config FLASH_CS
+	int "Chip Select used for Flash device"
+	depends on AM33XX
+	default 0
+	help
+	  Defines the chip select used for flash.
+
 config SYS_AUTOMATIC_SDRAM_DETECTION
 	bool
 

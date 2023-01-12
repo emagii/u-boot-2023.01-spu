@@ -37,6 +37,10 @@ char gpmc_cs0_flash = MTD_DEV_TYPE_ONENAND;
 char gpmc_cs0_flash = -1;
 #endif
 
+#ifndef	CONFIG_FLASH_CS
+#define	CONFIG_FLASH_CS 0
+#endif
+
 #if defined(CONFIG_OMAP34XX)
 /********************************************************
  *  mem_ok() - test used to see if timings are correct
@@ -148,13 +152,13 @@ void set_gpmc_cs0(int flash_type)
 #endif
 	default:
 		/* disable the GPMC0 config set by ROM code */
-		writel(0, &gpmc_cfg->cs[0].config7);
+		writel(0, &gpmc_cfg->cs[CONFIG_FLASH_CS].config7);
 		sdelay(1000);
 		return;
 	}
 
 	/* enable chip-select specific configurations */
-	enable_gpmc_cs_config(gpmc_regs, &gpmc_cfg->cs[0], base, size);
+	enable_gpmc_cs_config(gpmc_regs, &gpmc_cfg->cs[CONFIG_FLASH_CS], base, size);
 }
 
 /*****************************************************
@@ -162,7 +166,7 @@ void set_gpmc_cs0(int flash_type)
  * Init GPMC for x16, MuxMode (SDRAM in x32).
  * This code can only be executed from SRAM or SDRAM.
  *****************************************************/
-void gpmc_init(void)
+__weak void gpmc_init(void)
 {
 	/* global settings */
 	writel(0x00000008, &gpmc_cfg->sysconfig);
