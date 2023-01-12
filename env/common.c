@@ -325,6 +325,32 @@ int env_import(const char *buf, int check, int flags)
 	return -EIO;
 }
 
+/*
+ * Import the environment from text file. No CRC-Check
+ * Note that "buf" may or may not be aligned.
+ */
+int env_import_text(const char *buf)
+{
+	env_t *ep = (env_t *)buf;
+
+	if (himport_r(&env_htab, (char *)ep->data, ENV_SIZE,
+		'\n',	/* separator */
+		0,	/* Do not delete old environment */
+		1,	/* Accept CR-LF */
+		0,	/* No list of variables, import all */
+		NULL	/* Empty list of variables */
+		)) {
+			gd->flags |= GD_FLG_ENV_READY;
+			return 0;
+	}
+
+	pr_err("Cannot import environment: errno = %d\n", errno);
+
+	env_set_default("import failed", 0);
+
+	return -EIO;
+}
+
 #ifdef CONFIG_SYS_REDUNDAND_ENVIRONMENT
 static unsigned char env_flags;
 

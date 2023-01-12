@@ -21,6 +21,7 @@
 #include <asm/cache.h>
 #include <asm/global_data.h>
 #include <linux/stddef.h>
+#include <log.h>
 
 #ifdef CONFIG_SPL_BUILD
 /* TODO(sjg@chromium.org): Figure out why this is needed */
@@ -168,7 +169,13 @@ static int env_fat_load(void)
 		goto err_env_relocate;
 	}
 
+	debug("\nReading \"%s\"\n", CONFIG_ENV_FAT_FILE);
+
+#if	defined(CONFIG_ENV_FAT_FILE_TEXT)
+	return env_import_text(buf);
+#else
 	return env_import(buf1, 1, H_EXTERNAL);
+#endif
 #endif
 
 err_env_relocate:

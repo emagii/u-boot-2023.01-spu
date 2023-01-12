@@ -291,6 +291,18 @@ int env_erase(void);
 int env_select(const char *name);
 
 /**
+ * env_import_text() - Import from a binary representation into hash table
+ *
+ * This imports the environment from a buffer. The format for each variable is
+ * var=value\0 with a double \0 at the end of the buffer.
+ *
+ * @buf: Buffer containing the environment (struct environemnt_s *)
+ * @return 0 if imported successfully,, -EIO if
+ *	something else went wrong
+ */
+int env_import_text(const char *buf);
+
+/**
  * env_import() - Import from a binary representation into hash table
  *
  * This imports the environment from a buffer. The format for each variable is

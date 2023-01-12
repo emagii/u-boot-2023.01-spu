@@ -507,6 +507,14 @@ config ENV_FAT_FILE_REDUND
 	  It's a string of the FAT file name. This file use to store the
 	  redundant environment.
 
+config ENV_FAT_FILE_TEXT
+	bool "FAT file to use for the environment is in text format"
+	depends on ENV_IS_IN_FAT
+	help
+	  The format is lines containing key=value pairs
+	  Line ending is LF or CR-LF
+	  blank lines and lines beginning with # are ignored.
+
 config ENV_EXT4_INTERFACE
 	string "Name of the block device for the environment"
 	depends on ENV_IS_IN_EXT4
