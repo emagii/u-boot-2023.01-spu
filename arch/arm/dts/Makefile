@@ -413,6 +413,7 @@ dtb-$(CONFIG_AM33XX) += \
 	am335x-sancloud-bbe-lite.dtb \
 	am335x-sancloud-bbe-extended-wifi.dtb \
 	am335x-shc.dtb \
+	am335x-spu.dtb \
 	am335x-pdu001.dtb \
 	am335x-chiliboard.dtb \
 	am335x-sl50.dtb \
