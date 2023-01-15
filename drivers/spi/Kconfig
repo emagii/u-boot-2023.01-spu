@@ -172,6 +172,12 @@ config DESIGNWARE_SPI
 	  access the SPI NOR flash on platforms embedding this Designware
 	  IP core.
 
+config EMAGII_SPI
+	bool "eMagii SPI driver"
+	help
+	  Enable the eMagii SPI driver. This driver can be used to
+	  access the eMagii SPI block in an FPGA.
+
 config EXYNOS_SPI
 	bool "Samsung Exynos SPI driver"
 	help
